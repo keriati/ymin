@@ -4,7 +4,7 @@
 # Feel free to make it better :)
 ##
 
-yuicompressor="~/bin/yuicompressor-2.4.7.jar"
+yuicompressor=~/bin/yuicompressor-2.4.7.jar
 
 minjs()
 {
@@ -30,33 +30,39 @@ compress()
 {
     filein=$1
     fileout=${filein/\.css/\.min\.css}
-    fileout=${filein/\.js/\.min\.js}
+    fileout=${fileout/\.js/\.min\.js}
     echo "  $filein => $fileout"
-    echo "java -jar $yuicompressor $filein > $fileout"
+    java -jar $yuicompressor $filein > $fileout
 }
 
-help()
+yhelp()
 {
+    echo ""
     echo "JS/CSS Minifier script for YUI Compressor"
+    echo ""
     echo "Options"
     echo ""
     echo " -a     Compress all files in directory"
     echo " <file> Compress one file in directory"
+    echo ""
 }
 
-case $1 in
-    "-a")
-        minjs
-        mincss
-    ;;
-    *)
-        if [ -f $1 ]; then
-            compress $1
-        else
-            help
-        fi
-    ;;
-    "")
-        help
-    ;;
-esac
+if [ ! $1 ]; then
+    yhelp
+else
+    case $1 in
+        "-a")
+            minjs
+            mincss
+        ;;
+        *)
+             if [ -f $1 ]; then
+                compress $1
+             else
+                yhelp
+            fi
+        ;;   
+    esac
+fi
+exit 0
+
