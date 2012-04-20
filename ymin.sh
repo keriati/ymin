@@ -31,8 +31,8 @@ compress()
     filein=$1
     fileout=${filein/\.css/\.min\.css}
     fileout=${filein/\.js/\.min\.js}
-    #java -jar $yuicompressor $filein > $fileout
     echo "  $filein => $fileout"
+    echo "java -jar $yuicompressor $filein > $fileout"
 }
 
 help()
