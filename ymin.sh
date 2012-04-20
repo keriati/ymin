@@ -47,7 +47,7 @@ yhelp()
     echo ""
 }
 
-if [ ! $1 ]; then
+if [ -z $1 ]; then
     yhelp
 else
     case $1 in
@@ -59,6 +59,8 @@ else
              if [ -f $1 ]; then
                 compress $1
              else
+                echo ""
+                echo "Error: $1 not found!"
                 yhelp
             fi
         ;;   
